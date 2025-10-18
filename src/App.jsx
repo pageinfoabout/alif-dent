@@ -228,13 +228,13 @@ function Contacts() {
           <div>Телефон: <a href="tel:+74957900699">+7 (495) 790-06-99</a></div>
           <div>Сайт: <a href="https://alif-dent.clients.site" target="_blank" rel="noreferrer">alif-dent.clients.site</a></div>
           <div className="socials">
-            <a className="icon-btn" href="https://t.me/+77754120256" target="_blank" rel="noreferrer" aria-label="Telegram">
+            <a className="icon-btn" href="" target="_blank" rel="noreferrer" aria-label="Telegram">
               <img src="/icons8-telegram-app.svg" alt="Telegram" />
             </a>
-            <a className="icon-btn" href="https://www.instagram.com/house_facade_kz" target="_blank" rel="noreferrer" aria-label="Instagram">
+            <a className="icon-btn" href="" target="_blank" rel="noreferrer" aria-label="Instagram">
               <img src="/inst.png" alt="Instagram" />
             </a>
-            <a className="icon-btn" href="https://api.whatsapp.com/send/?phone=77472221014&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%0A%0A%D0%9F%D0%B8%D1%88%D1%83+%D0%B8%D0%B7+%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F+2%D0%93%D0%98%D0%A1.%0A%0A&type=phone_number&app_absent=0" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+            <a className="icon-btn" href="" target="_blank" rel="noreferrer" aria-label="WhatsApp">
               <img src="/icons8-whatsapp.svg" alt="WhatsApp" />
             </a>
           </div>
@@ -272,10 +272,10 @@ function BookingModal({ open, onClose }) {
             <button type="submit" className="btn primary">Отправить</button>
             <div className="modal-alt">
               <span>Другие способы связи:</span>
-              <a className="icon-btn" href="https://t.me/+77754120256" target="_blank" rel="noreferrer" aria-label="Telegram">
+              <a className="icon-btn" href="" target="_blank" rel="noreferrer" aria-label="Telegram">
                 <img src="/icons8-telegram-app.svg" alt="Telegram" />
               </a>
-              <a className="icon-btn" href="https://api.whatsapp.com/send/?phone=77472221014" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+              <a className="icon-btn" href="" target="_blank" rel="noreferrer" aria-label="WhatsApp">
                 <img src="/icons8-whatsapp.svg" alt="WhatsApp" />
               </a>
             </div>
