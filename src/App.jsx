@@ -26,9 +26,9 @@ function Header() {
 function Hero({ onOpenBooking }) {
   return (
     <section id="top" className="hero homelo">
-      <div className="bg-word" aria-hidden="true">CLINIC</div>
+      <div className="bg-word homelo" aria-hidden="true">ALIF DENT</div>
       <div className="hero-left">
-        <img className="hero-logo" src="/logo(1).png" alt="ALIF DENT" />
+        <div className="hero-tagline">Взрослая и детская стоматология</div>
         <ul className="bullets">
           <li>Место, где о вас по-настоящему заботятся.</li>
           <li>Опытные врачи, современное оборудование и комфортная атмосфера.</li>

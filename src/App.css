@@ -103,6 +103,7 @@
 }
 
 .hero-logo { width: 260px; height: auto; object-fit: contain; }
+.hero-tagline { font-size: 20px; color: var(--brand); font-weight: 500; letter-spacing: 0.04em; }
 
 .kicker {
   color: var(--muted);
@@ -310,8 +311,8 @@
   top: 30px;
   font-size: clamp(80px, 18vw, 240px);
   letter-spacing: 0.06em;
-  color: #000;
-  opacity: 0.06;
+  color: var(--brand);     /* or: #8d1d2c */
+  opacity: 0.14;           /* tweak 0.06–0.3 to taste */
   font-weight: 800;
   text-align: center;
   pointer-events: none;
@@ -445,6 +446,7 @@
   .hero-left { padding: 28px 5vw; gap: 18px; }
   .hero-right { height: 42vh; }
   .hero-logo { width: 180px; }
+  .hero-tagline { font-size: 16px; }
   .btn-link { padding: 12px 18px; }
   .icon-btn { width: 44px; height: 44px; }
   .icon-btn img { width: 22px; height: 22px; }
