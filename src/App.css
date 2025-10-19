@@ -492,7 +492,7 @@
   .hero-left { position: relative; padding: 28px 5vw; gap: 18px; }
   .hero-right { height: 50vh; }
   .hero-logo { width: 180px; }
-  .hero-logo-left { position: absolute; top: -360px; left: 35px; width: 160px; height: auto; z-index: 2; }
+  .hero-logo-left { position: absolute; top: -320px; left: 35px; width: 160px; height: auto; z-index: 2; }
   .hero-tagline { font-size: 16px; }
   .hero-video { object-fit: cover; object-position: 70% center; left: 0px; top: 0;}
   .btn-link { padding: 12px 18px; }
