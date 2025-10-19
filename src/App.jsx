@@ -1,7 +1,6 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { supabase } from '../supabase/client.js'
 
 function Header() {
   const [open, setOpen] = useState(false)
@@ -273,56 +272,37 @@ function Contacts() {
 }
 
 function BookingModal({ open, onClose }) {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-
   if (!open) return null
-
-  async function handleSubmit(e) {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
-    const fd = new FormData(e.currentTarget)
-    const payload = {
-      name: fd.get('name')?.trim(),
-      phone: fd.get('phone')?.trim(),
-      page: window.location.pathname + window.location.hash,
-      meta: { ua: navigator.userAgent }
-    }
-    const { error } = await supabase.from('requests').insert(payload)
-    setLoading(false)
-    if (error) { setError('Ошибка отправки. Попробуйте ещё раз.'); return }
-    onClose && onClose()
-    alert('Заявка отправлена!')
-  }
-
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" aria-label="Закрыть" onClick={onClose}>×</button>
         <h3 className="modal-title">Запись на приём</h3>
-        <p className="modal-note">Перезвоним в течение 15 минут...</p>
-
-        <form className="form-grid" onSubmit={handleSubmit}>
+        <p className="modal-note">Перезвоним в течение 15 минут (работаем по будням с 8 до 21, по выходным с 9 до 21)</p>
+        <form className="form-grid" onSubmit={(e) => { e.preventDefault(); onClose && onClose(); }}>
           <label className="field">
             <span className="field-label">ФИО *</span>
-            <input className="input" type="text" name="name" required />
+            <input className="input" type="text" name="name" placeholder="Ваше имя" required />
           </label>
           <label className="field">
             <span className="field-label">Номер телефона *</span>
-            <input className="input" type="tel" name="phone" required />
+            <input className="input" type="tel" name="phone" placeholder="+7-(999)-999-99-99" required />
           </label>
           <label className="check">
             <input type="checkbox" required />
             <span>Я даю своё согласие на обработку компанией ООО "ALIF DENT" моих персональных данных в соответствии с требованиями ФЗ от 27.07.2006г. № 152-ФЗ «О персональных данных» и Политикой обработки и защиты персональных данных. *</span>
           </label>
-
-          {error && <div style={{color:'#b00020'}}>{error}</div>}
-
           <div className="modal-actions">
-            <button type="submit" className="btn primary" disabled={loading}>
-              {loading ? 'Отправка…' : 'Отправить'}
-            </button>
+            <button type="submit" className="btn primary">Отправить</button>
+            <div className="modal-alt">
+              <span>Другие способы связи:</span>
+              <a className="icon-btn" href="" target="_blank" rel="noreferrer" aria-label="Telegram">
+                <img src="/icons8-telegram-app.svg" alt="Telegram" />
+              </a>
+              <a className="icon-btn" href="" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+                <img src="/icons8-whatsapp.svg" alt="WhatsApp" />
+              </a>
+            </div>
           </div>
         </form>
       </div>
