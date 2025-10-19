@@ -49,28 +49,47 @@ function Header() {
   )
 }
 
-function Hero({ onOpenBooking }) {
+function Hero() {
+  const vRef = useRef(null);
+
+  useEffect(() => {
+    const v = vRef.current;
+    if (!v) return;
+
+    const tryPlay = () => v.play().catch(() => {});
+    tryPlay(); // попытка автозапуска
+
+    const kick = () => { tryPlay(); cleanup(); };
+    const cleanup = () => {
+      window.removeEventListener('touchstart', kick);
+      window.removeEventListener('click', kick);
+      document.removeEventListener('visibilitychange', tryPlay);
+    };
+
+    window.addEventListener('touchstart', kick, { once: true });
+    window.addEventListener('click', kick, { once: true });
+    document.addEventListener('visibilitychange', tryPlay);
+
+    return cleanup;
+  }, []);
+
   return (
-    <section id="top" className="hero homelo">
-      <video className="hero-video" src="/561717044.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
-      <div className="hero-left">
-        <img className="hero-logo-left" src="/logo(1).png" alt="ALIF DENT" />
-        <ul className="bullets">
-          <li>Место, где о вас по-настоящему заботятся.</li>
-          <li>Опытные врачи, современное оборудование и комфортная атмосфера.</li>
-          <li>Современная клиника с внимательным отношением к каждому пациенту.</li>
-          <li>Ваше здоровье — наша забота.</li>
-        </ul>
-        <div className="chips">
-        
-        </div>
-        <div className="hero-cta">
-          <a className="btn-link primary" href="#book" onClick={(e) => { e.preventDefault(); onOpenBooking && onOpenBooking(); }}>Записаться на приём</a>
-        </div>
-      </div>
-      <div className="hero-right curved" aria-hidden="true" />
-    </section>
-  )
+    <video
+      ref={vRef}
+      className="hero-video"
+      src="/561717044.mp4"
+      autoPlay
+      muted
+      loop
+      playsInline
+      webkit-playsinline="true"
+      preload="auto"
+      controls={false}
+      disablePictureInPicture
+      controlsList="nodownload noplaybackrate noremoteplayback"
+      onLoadedData={e => e.currentTarget.play().catch(()=>{})}
+    />
+  );
 }
 
 function About() {
