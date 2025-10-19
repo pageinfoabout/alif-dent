@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 
 function Header() {
+  const [open, setOpen] = useState(false)
+
   return (
     <header className="header">
       <div className="header-inner homelo">
         <Link to="/" className="brand brand-left" aria-label="looks.Moscow">
           <img className="brand-mark" src="/logo(1).png" alt="looks.Moscow" />
         </Link>
+
         <nav className="nav nav-center" aria-label="Главное меню">
           <Link to="/">Главная</Link>
           <a href="/#materials">Услуги</a>
@@ -17,7 +20,30 @@ function Header() {
           <Link to="/about">О нас</Link>
           <Link to="/contacts">Контакты</Link>
         </nav>
+
         <Link to="/contacts" className="contact-pill">Связаться</Link>
+
+        <button
+          className={`menu-toggle${open ? ' is-open' : ''}`}
+          aria-label="Открыть меню"
+          aria-expanded={open}
+          onClick={() => setOpen(o => !o)}
+        >
+          <span/><span/><span/>
+        </button>
+      </div>
+
+      <div className={`mobile-menu${open ? ' open' : ''}`} onClick={() => setOpen(false)}>
+        <div className="mobile-sheet" onClick={(e) => e.stopPropagation()}>
+          <nav className="mobile-nav" aria-label="Мобильное меню">
+            <Link to="/" onClick={() => setOpen(false)}>Главная</Link>
+            <a href="/#materials" onClick={() => setOpen(false)}>Услуги</a>
+            <a href="/#services" onClick={() => setOpen(false)}>Врачи</a>
+            <a href="/#projects" onClick={() => setOpen(false)}>Проекты</a>
+            <Link to="/about" onClick={() => setOpen(false)}>О нас</Link>
+            <Link to="/contacts" onClick={() => setOpen(false)}>Контакты</Link>
+          </nav>
+        </div>
       </div>
     </header>
   )
@@ -26,9 +52,9 @@ function Header() {
 function Hero({ onOpenBooking }) {
   return (
     <section id="top" className="hero homelo">
-      <div className="bg-word homelo" aria-hidden="true">ALIF DENT</div>
+      <video className="hero-video" src="/561717044.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
       <div className="hero-left">
-        <div className="hero-tagline">Взрослая и детская стоматология</div>
+        <img className="hero-logo-left" src="/logo(1).png" alt="ALIF DENT" />
         <ul className="bullets">
           <li>Место, где о вас по-настоящему заботятся.</li>
           <li>Опытные врачи, современное оборудование и комфортная атмосфера.</li>
@@ -42,16 +68,14 @@ function Hero({ onOpenBooking }) {
           <a className="btn-link primary" href="#book" onClick={(e) => { e.preventDefault(); onOpenBooking && onOpenBooking(); }}>Записаться на приём</a>
         </div>
       </div>
-      <div className="hero-right curved" aria-hidden="true">
-        <img className="hero-photo" src="/main.png" alt="Вентфасад" />
-      </div>
+      <div className="hero-right curved" aria-hidden="true" />
     </section>
   )
 }
 
 function About() {
   const aboutImages = [
-    '/info/XXXL.webp',
+    '/info/XXXL%20(1).webp',
     '/info/XXXL%20(1).webp',
     '/info/XXXL%20(2).webp',
     '/info/XXXL%20(3).webp',
