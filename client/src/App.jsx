@@ -1033,7 +1033,7 @@ function BookingModal({ open, onClose, selectedService }) {
       <div className="modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" aria-label="Закрыть" onClick={onClose}>×</button>
         <h3 className="modal-title">Запись на приём</h3>
-        <p className="modal-note">Перезвоним в течение 15 минут (работаем по будням с 8 до 21, по выходным с 9 до 21)</p>
+        <p className="modal-note">Перезвоним в течение 15 минут (работаем каждый день с 9 до 21)</p>
         <form
           className="form-grid"
           onSubmit={async (e) => {
@@ -1318,8 +1318,11 @@ const DOCTORS = {
     specialty: 'Хирург-ортопед-стоматолог',
     photos: [
       '/VRACHI/umarbek/umarbek.jpeg',
-      '/VRACHI/umarbek/umarbek2.jpeg'
+      '/VRACHI/umarbek/umarbek2.jpeg',
+      '/VRACH远程/umarbek/umarbek10.png',
+      '/VRACHI/umarbek/umarbek20.png'
     ],
+    
     education: [
       '2009-2014 г. - окончил Кыргызско-Российский Славянский Университет, медицинский факультет, специальность - «Стоматология»',
       '2014-2015г. - Интернатура по специальности «Стоматолог общего профиля», Российский Университет Дружбы Народов (РУДН)',
