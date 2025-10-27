@@ -1319,7 +1319,7 @@ const DOCTORS = {
     photos: [
       '/VRACHI/umarbek/umarbek.jpeg',
       '/VRACHI/umarbek/umarbek2.jpeg',
-      '/VRACH远程/umarbek/umarbek10.png',
+      '/VRACHI/umarbek/umarbek10.png',
       '/VRACHI/umarbek/umarbek20.png'
     ],
     
