@@ -1,3 +1,7 @@
+@import "tailwindcss";
+
+
+
 :root {
   --bg: #ffffff;
   --fg: #0a0a0a;
@@ -48,3 +52,40 @@ h1, h2, h3, h4, h5 {
 p {
   margin: 0;
 }
+
+/* Статус до этого: зеленый или красный */
+.status-before {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.status-before.active {
+  background: #4caf50;
+  color: white;
+}
+.status-before.rejected {
+  background: #f44336;
+  color: white;
+}
+
+/* Статус сейчас: серая галочка */
+.status-current {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #e0e0e0;
+  color: #666;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
+

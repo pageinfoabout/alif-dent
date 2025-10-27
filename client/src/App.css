@@ -274,7 +274,7 @@
 }
 
 /* Doctors */
-.doctors { grid-template-columns: repeat(4, 1fr); max-width: 1480px; margin: 0 auto; }
+.doctors { grid-template-columns: repeat(5, 1fr); max-width: 1480px; margin: 0 auto; }
 .doctor-card {
   background: #fafafa;
   border: 1px solid var(--border);
@@ -282,6 +282,13 @@
   padding: 16px;
   display: grid;
   gap: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+.doctor-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+ 
 }
 .doctor-photo {
   width: 100%;
@@ -289,8 +296,13 @@
   object-fit: cover;
   background: #fff;
   border-radius: 12px;
+  transition: transform 0.5s ease;
+}
+.doctor-card:hover .doctor-photo {
+  transform: scale(1.05);
 }
 .doctor-name { font-size: 18px; }
+
 
 .contacts { display: grid; gap: 32px; }
 
@@ -396,6 +408,10 @@
   padding: 28px 28px 22px;
   position: relative;
   box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch; /* smooth iOS scroll */
 }
 .modal-close {
   position: absolute;
@@ -406,6 +422,7 @@
   background: transparent;
   border: 0;
   cursor: pointer;
+  z-index: 1000;
 }
 .modal-title { font-size: 32px; margin: 0 0 12px; }
 .modal-note { color: var(--muted); margin-bottom: 18px; }
@@ -423,6 +440,79 @@
 .modal-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 12px; }
 .btn.primary { background: var(--brand); border: 1px solid var(--brand); color: #fff; border-radius: 999px; padding: 10px 18px; }
 .modal-alt { display: inline-flex; gap: 10px; align-items: center; }
+
+/* Services select */
+.selectlike {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px 12px;
+  text-align: left;
+}
+.selectlike:hover { filter: brightness(0.98); }
+.selectlike.open { box-shadow: 0 8px 18px rgba(0,0,0,0.06); }
+.selectlike-text { flex: 1; color: var(--fg); }
+.selectlike-caret { color: var(--muted); }
+
+.services-select {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 8px;
+  background: #fff;
+}
+.services-select .input { margin-bottom: 8px; }
+.services-list {
+  max-height: 220px;
+  overflow: auto;
+  display: grid;
+  gap: 6px;
+}
+.service-item {
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 6px;
+  border-radius: 8px;
+}
+.service-item:hover { background: #fafafa; }
+.service-name { color: var(--fg); }
+.service-price { color: var(--muted); white-space: nowrap; }
+.service-empty { color: var(--muted); padding: 10px; }
+.service-summary { margin-top: 6px; color: var(--muted); font-size: 14px; }
+
+/* Calendar */
+.calendar {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 8px;
+  background: #fff;
+}
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.cal-title { font-weight: 600; text-transform: capitalize; }
+.cal-nav { border: 1px solid var(--border); background: #fff; border-radius: 8px; padding: 6px 8px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.cal-weekdays { color: var(--muted); font-size: 12px; margin-bottom: 4px; }
+.cal-days { margin-bottom: 8px; }
+.cal-day { border: 1px solid var(--border); background: #fff; border-radius: 8px; padding: 8px; }
+.cal-day.selected { outline: 2px solid var(--brand); }
+.cal-day:disabled { background: #f5f5f5; color: #bbb; }
+.times { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+.time { border: 1px solid var(--border); background: #fff; border-radius: 999px; padding: 8px 10px; text-align: center; }
+.time.selected { background: var(--brand); color: #fff; border-color: var(--brand); }
+.time:disabled { background: #f5f5f5; color: #bbb; }
 
 .footer {
   border-top: 1px solid var(--border);
@@ -525,12 +615,15 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  height: 100%;
 }
 .mobile-nav a {
   display: block;
   padding: 14px 4px;
   font-size: 18px;
   border-bottom: 1px solid var(--border);
+  flex: 1;                /* take remaining height so the button block goes to bottom */
+  overflow: auto;  
 }
 
 /* Мобильные правила */
@@ -552,7 +645,7 @@
     right: 14px;
     top: 12px;
     z-index: 12;
-    box-shadow: 0 8px 22px rgba(141,29,44,0.24);
+    box-shadow: 0 8px 22px #8d1d2c;
   }
   .menu-toggle span {
     display: block;
@@ -585,5 +678,248 @@
     position: absolute;
     right: 12px;
     bottom: 12px;
+  }
+}
+
+.login-modal {
+  display: grid;
+  grid-template-rows: auto 1fr;   /* title on top, body fills rest */
+}
+
+.center-login {
+  display: grid;
+  place-items: center;             /* center horizontally + vertically */
+  min-height: 50vh;                /* space to center within modal */
+  padding: 12px 0;
+}
+
+/* Services Modal */
+.svc-modal { padding: 0; overflow: hidden; }
+.svc-hero { position: relative; height: 260px; }
+.svc-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.svc-hero-gradient { position: absolute; left: 0; right: 0; bottom: 0; height: 48%; background: linear-gradient(to top, rgba(0,0,0,0.45), transparent); }
+.svc-hero-title { position: absolute; left: 20px; bottom: 14px; margin: 0; color: #fff; font-size: 28px; font-weight: 700; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+.svc-list { padding: 18px; display: grid; gap: 8px; max-height: calc(100vh - 260px); overflow: auto; }
+.svc-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; background: #fff; }
+.svc-row-name { font-weight: 500; color: var(--fg); }
+.svc-row-right { display: inline-flex; align-items: center; gap: 8px; }
+.svc-price { background:  #8d1d2c; color: #fff; border-radius: 999px; padding: 8px 12px; font-weight: 700; }
+.clickable { cursor: pointer; }
+
+/* sticky close button for services modal */
+.svc-modal { position: relative; }
+.svc-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.96);
+  color: #111;
+  font-size: 22px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+  cursor: pointer;
+}
+.svc-close:hover { filter: brightness(0.96); }
+
+/* Bottom-right actions in mobile sheet */
+@media (max-width: 640px) {
+  .mobile-actions {
+    margin-top: auto;             /* push to bottom */
+    display: flex;
+    justify-content: flex-end;    /* right aligned */
+    gap: 8px;
+  }
+  .mobile-sheet .contact-pill {   /* override the mobile hide rule */
+    display: inline-flex;
+  }
+}
+.svc-search {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 10px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.95);
+  border-radius: 999px;
+  font-size: 16px;
+  color: #111;
+  z-index: 2;
+}
+
+.svc-search::placeholder {
+  color: #888;
+}
+.svc-backdrop-top {
+  align-items: flex-start;
+  padding-top: 5vh;
+}
+
+.hero-coupon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; /* центрировать содержимое */
+  gap: 6px;
+  padding: 10px 18px;
+  background: #fff;
+  border: 2px dashed #8d1d2c;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(141,29,44,0.15);
+  white-space: nowrap;
+  width: fit-content; /* или задать конкретную ширину */
+  min-width: 200px; /* минимальная ширина, как у кнопки */
+  max-width: 300px; /* максимальная ширина */
+}
+
+.coupon-text {
+  color: #8d1d2c;
+  font-weight: 60;
+  font-size: 14px;
+}
+
+.coupon-discount {
+  background: #8d1d2c;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.applied-coupon {
+  padding: 8px 12px;
+  background: #e8f5e9;
+  border: 1px solid #4caf50;
+  border-radius: 6px;
+  color: #2e7d32;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+/* Doctor Modal */
+/* Doctor Modal */
+.doctor-modal {
+  max-width: 1000px;
+  max-height: 85vh;  /* Add this */
+  padding: 0;
+  overflow-y: auto;  /* Change from 'hidden' to 'auto' */
+}
+
+.doctor-modal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 20px;
+}
+
+.doctor-modal-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.doctor-photo-carousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.doctor-carousel-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.doctor-carousel-img.active {
+  opacity: 1;
+}
+
+.doctor-photo-indicators {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.photo-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ddd;
+  border: 0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.photo-indicator.active {
+  background: var(--brand);
+}
+
+.photo-indicator:hover {
+  background: var(--accent);
+}
+
+.doctor-modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.doctor-modal-name {
+  font-size: 24px;
+  margin: 0;
+  color: var(--fg);
+}
+
+.doctor-modal-specialty {
+  font-size: 16px;
+  color: var(--brand);
+  margin: 0;
+  font-weight: 600;
+}
+
+.doctor-modal-description h4 {
+  font-size: 18px;
+  margin: 0 0 12px 0;
+  color: var(--fg);
+}
+
+.doctor-education-text {
+  margin: 0;
+  padding: 16px;
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-line;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .doctor-modal-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .doctor-photo-carousel {
+    aspect-ratio: 1/1;
   }
 }
