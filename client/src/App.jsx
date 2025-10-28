@@ -794,7 +794,7 @@ function WhyUs({ onDoctorClick }) {
         <div className="doctor-card clickable" onClick={() => onDoctorClick && onDoctorClick('erk')}>
           <img
             className="doctor-photo"
-            src="/VRACHI/ulu.png"
+            src="/VRACHI/erk/doctor.png"
             alt="Эрк Улу Нияз"
           />
           <div className="doctor-info">
@@ -1393,10 +1393,8 @@ const DOCTORS = {
     name: 'Эрк Улу Нияз',
     specialty: 'Врач стоматолог общей практики (смешанный приём)',
     photos: [
-      '/VRACHI/erk/erk.png',
-      '/VRACHI/erk/erk 2.png',
-      '/VRACHI/erk/erk 3.png',
-      '/VRACHI/erk/erk 4.png'
+      '/VRACHI/erk/doctor.png',
+    
     ],
     education: [
       'Кырыгызско-Российский Славянский Университет имени Ельцина (2012-2017) г.Бишкек',
