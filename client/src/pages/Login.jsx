@@ -29,7 +29,7 @@ const Login = ({ onSuccess = () => {} }) => {
         }
         await signIn(formData.login.trim(), formData.password)
         toast.success('Добро пожаловать!')
-        onSuccess()
+        onSuccess(false) // false = это вход, не регистрация
       } else {
         if (!formData.username || !formData.login || !formData.password) {
           toast.error('Заполните все поля')
@@ -42,7 +42,7 @@ const Login = ({ onSuccess = () => {} }) => {
           password: formData.password,
         })
         toast.success('Регистрация успешна!')
-        onSuccess()
+        onSuccess(true) // true = это регистрация
       }
     } catch (err) {
       toast.error(err.message || 'Ошибка авторизации')

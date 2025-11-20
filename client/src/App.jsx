@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, Outlet, useLocation, useOutletContext} from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import Login from './pages/Login.jsx'
+import PatientCardForm from './pages/PatientCardForm.jsx'
 import supabase from './lib/supabase.js'
 import { useAuth } from './lib/auth.jsx'
 
@@ -897,6 +898,27 @@ function Contacts() {
     </section>
   )
 }
+
+// Функция форматирования номера телефона для отображения
+const formatPhoneNumber = (value) => {
+  if (!value) return ''
+  const strValue = String(value)
+  const numbers = strValue.replace(/\D/g, '')
+  let formatted = numbers
+  if (formatted.startsWith('8')) {
+    formatted = '7' + formatted.slice(1)
+  }
+  if (formatted.length > 11) {
+    formatted = formatted.slice(0, 11)
+  }
+  if (formatted.length === 0) return ''
+  if (formatted.length <= 1) return `+${formatted}`
+  if (formatted.length <= 4) return `+${formatted[0]} (${formatted.slice(1)}`
+  if (formatted.length <= 7) return `+${formatted[0]} (${formatted.slice(1, 4)}) ${formatted.slice(4)}`
+  if (formatted.length <= 9) return `+${formatted[0]} (${formatted.slice(1, 4)}) ${formatted.slice(4, 7)}-${formatted.slice(7)}`
+  return `+${formatted[0]} (${formatted.slice(1, 4)}) ${formatted.slice(4, 7)}-${formatted.slice(7, 9)}-${formatted.slice(9)}`
+}
+
 function BookingModal({ open, onClose, selectedService }) {
   const [servicesOpen, setServicesOpen] = useState(false)
   const [serviceQuery, setServiceQuery] = useState("")
@@ -916,12 +938,33 @@ function BookingModal({ open, onClose, selectedService }) {
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState("")
   const { user } = useAuth()
+  const [userData, setUserData] = useState(null)
   const [useCoupon, setUseCoupon] = useState(false)
   const [promoCode, setPromoCode] = useState("")
   const [appliedCoupon, setAppliedCoupon] = useState(null)
   const [promoError, setPromoError] = useState("")
   const [couponAvailable, setCouponAvailable] = useState(null)
- 
+
+  // Загружаем данные пользователя при открытии модального окна
+  useEffect(() => {
+    if (!open) return
+    
+    const fetchUserData = async () => {
+      if (user?.id) {
+        const { data, error } = await supabase
+          .from('users')
+          .select('name, middle_name, last_name, number')
+          .eq('id', user.id)
+          .single()
+        
+        if (!error && data) {
+          setUserData(data)
+        }
+      }
+    }
+    
+    fetchUserData()
+  }, [open, user])
 
   useEffect(() => {
     if (selectedService && open) {
@@ -1039,8 +1082,21 @@ function BookingModal({ open, onClose, selectedService }) {
           onSubmit={async (e) => {
             e.preventDefault()
             setSubmitError("")
-            if (!name.trim()) { setSubmitError('Укажите ФИО'); return }
-            if (!phone.trim()) { setSubmitError('Укажите телефон'); return }
+            
+            // Если пользователь не авторизован, требуем ввод имени и телефона
+            if (!user) {
+              if (!name.trim()) { setSubmitError('Укажите ФИО'); return }
+              if (!phone.trim()) { setSubmitError('Укажите телефон'); return }
+            } else {
+              // Если пользователь авторизован, проверяем наличие данных в карточке
+              if (!userData || (!userData.name && !userData.last_name)) {
+                setSubmitError('Заполните данные в карточке пациента'); return
+              }
+              if (!userData.number) {
+                setSubmitError('Добавьте номер телефона в карточке пациента'); return
+              }
+            }
+            
             if (!selectedDate) { setSubmitError('Выберите дату'); return }
             if (!selectedTime) { setSubmitError('Выберите время'); return }
             if (selectedServiceIds.length === 0) { setSubmitError('Выберите услугу'); return }
@@ -1053,9 +1109,24 @@ function BookingModal({ open, onClose, selectedService }) {
               ? Math.floor(selectedServices.reduce((sum, s) => sum + (s.price || 0), 0) * (1 - appliedCoupon.discount_percent / 100))
               : selectedServices.reduce((sum, s) => sum + (s.price || 0), 0)
             
+            // Формируем полное имя: name + middle_name + last_name
+            let fullName = ''
+            if (user && userData) {
+              const parts = []
+              if (userData.name) parts.push(userData.name)
+              if (userData.middle_name) parts.push(userData.middle_name)
+              if (userData.last_name) parts.push(userData.last_name)
+              fullName = parts.join(' ')
+            } else {
+              fullName = name.trim()
+            }
+            
+            // Берем телефон из данных пользователя или из поля ввода
+            const phoneNumber = (user && userData?.number) ? userData.number : phone.trim()
+            
             const payload = {
-              name: name.trim(),
-              phone: phone.trim(),
+              name: fullName,
+              phone: phoneNumber,
               date: formatDateKey(selectedDate),
               time: selectedTime,
               services: selectedServices.map(s => ({ id: s.id, name: s.name, price: s.price })),
@@ -1130,14 +1201,36 @@ if (useCoupon && appliedCoupon && user?.id) {
             }
           }}
         >
-          <label className="field">
-            <span className="field-label">ФИО *</span>
-            <input className="input" type="text" name="name" placeholder="Ваше имя" value={name} onChange={(e) => setName(e.target.value)} required />
-          </label>
-          <label className="field">
-            <span className="field-label">Номер телефона *</span>
-            <input className="input" type="tel" name="phone" placeholder="+7-(999)-999-99-99" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-          </label>
+          {!user && (
+            <>
+              <label className="field">
+                <span className="field-label">ФИО *</span>
+                <input className="input" type="text" name="name" placeholder="Ваше имя" value={name} onChange={(e) => setName(e.target.value)} required />
+              </label>
+              <label className="field">
+                <span className="field-label">Номер телефона *</span>
+                <input className="input" type="tel" name="phone" placeholder="+7-(999)-999-99-99" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+              </label>
+            </>
+          )}
+          {user && userData && (
+            <div className="field">
+              <div style={{ 
+                padding: '12px 14px', 
+                background: '#f5f5f5', 
+                borderRadius: '8px',
+                border: '1px solid var(--border)'
+              }}>
+                <div style={{ fontSize: '14px', color: 'var(--muted)', marginBottom: '4px' }}>Ваши данные:</div>
+                <div style={{ fontWeight: '500', color: 'var(--fg)' }}>
+                  {[userData.name, userData.middle_name, userData.last_name].filter(Boolean).join(' ') || 'Данные не заполнены'}
+                </div>
+                <div style={{ fontSize: '14px', color: 'var(--muted)', marginTop: '4px' }}>
+                  {userData.number ? formatPhoneNumber(userData.number) : 'Номер телефона не указан'}
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="field">
             <span className="field-label">Выбор услуги</span>
@@ -1460,6 +1553,7 @@ const DOCTORS = {
 
 export default function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [isPatientCardOpen, setIsPatientCardOpen] = useState(false)
   const [openServices, setOpenServices] = useState(false)
   const [selectedServiceForBooking, setSelectedServiceForBooking] = useState(null)
   const [isBookingOpen, setIsBookingOpen] = useState(false)
@@ -1491,12 +1585,27 @@ export default function App() {
       <button className="modal-close" aria-label="Закрыть" onClick={() => setIsLoginOpen(false)}>×</button>
       <h3 className="modal-title">Войти</h3>
       <div className="modal-body center-login">
-        <Login onSuccess={() => setIsLoginOpen(false)} />
+        <Login onSuccess={(isRegistration) => {
+          setIsLoginOpen(false)
+          if (isRegistration) {
+            setIsPatientCardOpen(true)
+          }
+        }} />
           
       </div>
     </div>
   </div>
 )}
+      {isPatientCardOpen && (
+        <div className="modal-backdrop" onClick={() => setIsPatientCardOpen(false)}>
+          <div className="modal login-modal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" aria-label="Закрыть" onClick={() => setIsPatientCardOpen(false)}>×</button>
+            <div className="modal-body center-login">
+              <PatientCardForm onSuccess={() => setIsPatientCardOpen(false)} />
+            </div>
+          </div>
+        </div>
+      )}
       <DoctorModal
         open={doctorModalOpen}
         onClose={() => setDoctorModalOpen(false)}
