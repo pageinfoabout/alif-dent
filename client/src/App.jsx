@@ -1017,20 +1017,32 @@ function BookingModal({ open, onClose, selectedService }) {
   const handleApplyPromo = async () => {
     if (!promoCode.trim()) { setPromoError('Введите промокод'); return }
     setPromoError('')
-    
-    const { data, error } = await supabase
+
+    try {
+      const { data, error } = await supabase
       .from('cupons')
       .select('cupon_name, discount_percent')
-      .eq('cupon_name', promoCode.trim().toUpperCase())
+      .eq('cupon_name', promoCode.trim())
+      
       .maybeSingle()
-    
-    if (error || !data) {
-      setPromoError('Неверный промокод')
-      return
+
+      if (!error && data) {
+        setAppliedCoupon(data)
+        setPromoCode('')
+      } else {
+        setPromoError('Неверный промокод')
+        console.log('Неверный промокод', error)
+      }
+    } catch (error) {
+      setPromoError('Произошла ошибка сети')
+      console.log(error)
     }
     
-    setAppliedCoupon(data)
-    setPromoCode('')
+   
+    
+    
+    
+    
   }
 
   useEffect(() => {
