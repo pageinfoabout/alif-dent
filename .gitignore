@@ -2,3 +2,11 @@
 .env.*
 client/.env
 client/.env.*
+
+
+# Node dependencies
+node_modules/
+
+# React / Vite build output
+/dist
+/build

@@ -1158,8 +1158,8 @@ function BookingModal({ open, onClose, selectedService }) {
                 setSubmitting(false)
                 return
   }
-  console.log(data)
-  console.log('=== DEBUG: Проверка статуса купона ===')
+console.log(data)
+console.log('=== DEBUG: Проверка статуса купона ===')
 console.log('useCoupon:', useCoupon)
 console.log('appliedCoupon:', appliedCoupon)
 console.log('user?.id:', user?.id)

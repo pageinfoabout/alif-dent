@@ -1,0 +1,18 @@
+services:
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      # LiveKit WebSocket URL - nginx SSL proxy on port 7880
+      # NOTE: User must visit https://192.168.20.62:7880 first to accept the self-signed certificate
+      - VITE_SUPABASE_URL=https://luhagajafu.beget.app
+      # Empty VITE_API_URL means relative paths, goes through Vite proxy to backend
+      - VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzYxNjA5NjAwLCJleHAiOjE5MTkzNzYwMDB9.pkqkSan2E6HrxRUvj60Oouf6srzg-A5pTLjSWL8KIhs
+
+    restart: unless-stopped
+

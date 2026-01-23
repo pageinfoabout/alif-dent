@@ -1,0 +1,144 @@
+curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/CreateSIPInboundTrunk \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODU3MDExN30.Oh-mOjg9djIlMUk7oJAG0kZtjZo27-mKNZbK4vs_Ajw" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "trunk": {
+      "name": "call",
+      "numbers": ["+74951082926"],
+      "allowed_numbers": [""],
+      "allowed_addresses": ["sip.176239.voice.plusofon.ru"],
+      "auth_username": "gorskii241152003@gmail.com_201",
+      "auth_password": "5QcDfEj5"
+    }
+  }'
+
+
+
+curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/CreateSIPDispatchRule \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODc0MTU0MX0.gGZAp9GhsFsxoUsCD21GNFMLQXyTENv-y98RgQ7zTC0" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "dispatch_rule": {
+      "rule": {
+        "dispatchRuleIndividual": {
+          "roomPrefix": "rostel-"
+        }
+      }
+    },
+    "trunk_ids": ["ST_bEFjPWhJX7A5"],
+    "name": "rostel-dispatch"
+  }'
+
+
+
+delete
+
+curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/DeleteSIPDispatchRule \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2OTExODI4OH0.YTKZaCCq9Sj5i7nDtG95oeuqduioAR6duDXKmSOwSVU" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sip_dispatch_rule_id": "SDR_6rVzdQn2eQKo"
+  }'
+
+
+
+curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/DeleteSIPTrunk \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODU3MTA3MX0.RWbOoVy_BQbPPh4o764HVR8GT8tx2vnJVH37hYpHVqI" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sip_trunk_id": "ST_DgpTZm5Lps7b"
+  }'
+
+
+
+
+list:
+trunks:
+curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/ListSIPInboundTrunk \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2OTAxMDk0M30.caWtcFuMI79tjGPQKOCV9RF8ww0Fuepn7k3bmU01Ei4" \
+  -H "Content-Type: application/json" \
+  -d '{}'
+
+  curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/ListSIPOutboundTrunk \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODY1OTY4MX0.ud6559YP86e3tsn5vYARlGzMyk_Y51pBT_SnM9n2lkA" \
+  -H "Content-Type: application/json" \
+  -d '{}'
+
+
+rules:
+
+curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/ListSIPDispatchRule \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODgyNzY5NH0.35lgxWsF4_LZWqn3YPIWms8gEBgnWXOoz2WeFeUQFqM" \
+  -H "Content-Type: application/json" \
+  -d '{}'
+
+
+  token 
+python3 -c "
+import jwt, time
+payload = {'iss':'APITQp3Dd89HBup','sub':'admin','sip':{'admin':True},'exp':int(time.time())+86400}
+print(jwt.encode(payload,'RO8S8Lf5lUHrZFQW1e8zj94IznhfPrKovvxjQZSimX6A','HS256'))
+"
+
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODU2NDk0N30.h03D57Qt_aqPCyQOk7jZAIcKmU5VuZE22pjsQIOEWJs
+
+
+
+
+
+curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/CreateSIPOutboundTrunk \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODc0MTg4Mn0.SW-oUNO-LOFJZjy1c6tzH0p0pGKL-xAdUmw27k03KAY" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "trunk": {
+    "name": "call",
+    "address": "sip.176239.voice.plusofon.ru",
+    "numbers": ["74992130559"],
+    "auth_username": "",
+    "auth_password": ""
+  }
+}'
+
+
+curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/CreateSIPOutboundTrunk \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODc0MTg4Mn0.SW-oUNO-LOFJZjy1c6tzH0p0pGKL-xAdUmw27k03KAY" \
+-H "Content-Type: application/json" \
+-d '{
+  "trunk": {
+    "name": "rostelecom-outbound",
+    "numbers": ["74951986179"],
+    "transport": "UDP",
+    "address": ["sip.p1.cloudpbx.rt.ru"],
+    "auth_username": "",
+    "auth_password": ""
+  }
+}'
+
+
+
+
+
+    curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/CreateSIPDispatchRule \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODc0MTg4Mn0.SW-oUNO-LOFJZjy1c6tzH0p0pGKL-xAdUmw27k03KAY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "dispatch_rule": {
+      "rule": {
+        "dispatchRuleIndividual": {
+          "roomPrefix": "rostel-"
+        }
+      },
+      "roomConfig": {
+        "agents": [
+          {
+            "agentName": "assistant"
+
+          }
+        ]
+      }
+    },
+    "trunk_ids": [""],
+    "name": "rostel-dispatch"
+  }'
