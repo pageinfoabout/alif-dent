@@ -14,9 +14,9 @@ RUN npm run build
 
 FROM nginx:alpine
 
-RUN rm /etc/nginx/sites-available/nginx.conf
+RUN rm /etc/nginx/sites-available/alif.conf
 
-COPY nginx.conf /etc/nginx/sites-avaliable/alif.conf
+COPY alif.conf /etc/nginx/sites-avaliable/alif.conf
 COPY --from=build /client/dist /usr/share/nginx/html
 
 EXPOSE 80
