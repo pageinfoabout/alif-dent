@@ -16,7 +16,7 @@ FROM nginx:alpine
 
 RUN rm /etc/nginx/sites-available/alif.conf
 
-COPY alif.conf /etc/nginx/sites-avaliable/alif.conf
+COPY alif.conf /etc/nginx/sites-available/alif.conf
 COPY --from=build /client/dist /usr/share/nginx/html
 
 EXPOSE 80
