@@ -3,7 +3,7 @@ services:
   # React Frontend
   frontend:
     build:
-      context: ./client
+      context: /client
       dockerfile: Dockerfile
     ports:
       - "80:80"
