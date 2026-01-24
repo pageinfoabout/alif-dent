@@ -7,7 +7,7 @@ COPY package*.json ./
 RUN npm ci
 
 
-COPY ./client/.env .
+COPY .env .   
 COPY . .
 
 RUN npm run build
