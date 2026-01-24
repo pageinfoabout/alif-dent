@@ -6,7 +6,7 @@ services:
       context: ./client
       dockerfile: DockerFile
     ports:
-      - "80:80"
+      - "8080:80"   
     environment:
       # LiveKit WebSocket URL - nginx SSL proxy on port 7880
       # NOTE: User must visit https://192.168.20.62:7880 first to accept the self-signed certificate
