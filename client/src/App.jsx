@@ -877,7 +877,10 @@ function Contacts() {
         </iframe>
         <div className="list">
           <div><strong>Стоматология ALIF DENT</strong></div>
-          <div>Телефон: <a href="tel:+74957900699">+7 (495) 790-06-99</a></div>
+          <div>
+            Телефон: <a href="tel:+74957900699">+7 (495) 790-06-99</a>,{' '}
+            <a href="tel:+74992130459">+7 (499) 213-04-59</a>
+          </div>
           <div>Сайт: <a href="https://alif-dent.clients.site" target="_blank" rel="noreferrer">alif-dent.clients.site</a></div>
           <div className="socials">
             <a className="icon-btn" href="https://t.me/alif_dent_bot" target="_blank" rel="noreferrer" aria-label="Telegram">

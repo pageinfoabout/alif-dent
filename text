@@ -34,19 +34,23 @@ curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/CreateSIPDispatch
 delete
 
 curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/DeleteSIPDispatchRule \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2OTExODI4OH0.YTKZaCCq9Sj5i7nDtG95oeuqduioAR6duDXKmSOwSVU" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc3NDg4NjY4MH0.Ea1Zr9v6V65zFi3nZtEggC-ROlUGppTDon7NWmIaCHQ" \
   -H "Content-Type: application/json" \
   -d '{
-    "sip_dispatch_rule_id": "SDR_6rVzdQn2eQKo"
+    "sip_dispatch_rule_id": "SDR_ZuXd5B5kXdYE"
   }'
 
 
+trunk_id
+"ST_W9JmGDSwMu2L"
+rule_id
+"SDR_ahL5jJ8C9vzz"
 
 curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/DeleteSIPTrunk \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODU3MTA3MX0.RWbOoVy_BQbPPh4o764HVR8GT8tx2vnJVH37hYpHVqI" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc3NDg4NjY4MH0.Ea1Zr9v6V65zFi3nZtEggC-ROlUGppTDon7NWmIaCHQ" \
   -H "Content-Type: application/json" \
   -d '{
-    "sip_trunk_id": "ST_DgpTZm5Lps7b"
+    "sip_trunk_id": "ST_yHDYmgUGvfDh"
   }'
 
 
@@ -55,12 +59,12 @@ curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/DeleteSIPTrunk \
 list:
 trunks:
 curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/ListSIPInboundTrunk \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2OTAxMDk0M30.caWtcFuMI79tjGPQKOCV9RF8ww0Fuepn7k3bmU01Ei4" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc3NDg4NjY4MH0.Ea1Zr9v6V65zFi3nZtEggC-ROlUGppTDon7NWmIaCHQ" \
   -H "Content-Type: application/json" \
   -d '{}'
 
   curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/ListSIPOutboundTrunk \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODY1OTY4MX0.ud6559YP86e3tsn5vYARlGzMyk_Y51pBT_SnM9n2lkA" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc3NDg4NjY4MH0.Ea1Zr9v6V65zFi3nZtEggC-ROlUGppTDon7NWmIaCHQ" \
   -H "Content-Type: application/json" \
   -d '{}'
 
@@ -68,7 +72,7 @@ curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/ListSIPInboundTru
 rules:
 
 curl -X POST https://livekit.alifdent.online/twirp/livekit.SIP/ListSIPDispatchRule \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc2ODgyNzY5NH0.35lgxWsF4_LZWqn3YPIWms8gEBgnWXOoz2WeFeUQFqM" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUElUUXAzRGQ4OUhCdXAiLCJzdWIiOiJhZG1pbiIsInNpcCI6eyJhZG1pbiI6dHJ1ZX0sImV4cCI6MTc3NDg4NjY4MH0.Ea1Zr9v6V65zFi3nZtEggC-ROlUGppTDon7NWmIaCHQ" \
   -H "Content-Type: application/json" \
   -d '{}'
 
